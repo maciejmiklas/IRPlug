@@ -1,1 +1,1 @@
-# IRPlug
+Infrared Plug based on Arduino
