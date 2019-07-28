@@ -2,6 +2,7 @@
 
 const int RECV_PIN = 7;
 const int OUT_PIN = 8;
+const int LED_PIN = 2;
 
 const int IR_SIG = 0x6F58;
 
@@ -14,18 +15,14 @@ void setup() {
 	irrecv.enableIRIn();
 	irrecv.blink13(true);
 	pinMode(OUT_PIN, OUTPUT);
+	pinMode(LED_PIN, OUTPUT);
 }
 
 long lst = 0;
-
+boolean lon = false;
 void loop() {
 	if (irrecv.decode(&results)) {
 		if (IR_SIG == results.value) {
-			long ct = millis();
-			if (ct - lst < 500){
-				return;
-			}
-			lst = ct;
 			if (on) {
 				//Serial.println("OFF");
 				digitalWrite(OUT_PIN, LOW);
@@ -35,7 +32,21 @@ void loop() {
 				//Serial.println("ON");
 				digitalWrite(OUT_PIN, HIGH);
 			}
+			delay(500);
 		}
 		irrecv.resume();
+	}
+
+	long ct = millis();
+	if (ct - lst > 2000) {
+		lst = ct;
+		if(lon){
+			digitalWrite(LED_PIN, LOW);
+			lon = false;
+		}else{
+			digitalWrite(LED_PIN, HIGH);
+			lon = true;
+
+		}
 	}
 }

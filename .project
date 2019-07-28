@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>IRremote-2.2.3</name>
+			<type>2</type>
+			<location>/Develop/Arduino/lib/IRremote-2.2.3</location>
+		</link>
+		<link>
 			<name>core/core</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/cores/arduino</locationURI>
@@ -45,6 +50,11 @@
 			<name>libraries/IRremote</name>
 			<type>2</type>
 			<locationURI>ECLIPSE_HOME/arduinoPlugin/libraries/IRremote/2.2.3</locationURI>
+		</link>
+		<link>
+			<name>libraries/Wire</name>
+			<type>2</type>
+			<locationURI>ECLIPSE_HOME/arduinoPlugin/packages/arduino/hardware/avr/1.6.23/libraries/Wire</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
