@@ -16,6 +16,7 @@ void setup() {
 	irrecv.blink13(true);
 	pinMode(OUT_PIN, OUTPUT);
 	pinMode(LED_PIN, OUTPUT);
+	digitalWrite(OUT_PIN, HIGH);
 }
 
 long lst = 0;
