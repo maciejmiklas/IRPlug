@@ -13,7 +13,7 @@ environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.EX
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.EXTENDED_FUSES/value=0xFD
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.FILE/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.FILE/operation=replace
-environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.FILE/value=atmega/ATmegaBOOT_168_atmega328.hex
+environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.FILE/value=optiboot/optiboot_atmega328.hex
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.HIGH_FUSES/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.HIGH_FUSES/operation=replace
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.BOOTLOADER.HIGH_FUSES/value=0xDA
@@ -415,7 +415,7 @@ environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.PROTOC
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.PROTOCOL/value=arduino
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.SPEED/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.SPEED/operation=replace
-environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.SPEED/value=57600
+environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.SPEED/value=115200
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.TOOL/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.TOOL/operation=replace
 environment/project/io.sloeber.core.toolChain.release.1154776706/A.UPLOAD.TOOL/value=avrdude
@@ -442,7 +442,7 @@ environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.COM_PORT
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.COM_PORT/value=/dev/ttyUSB0
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.ECLIPSE_LOCATION/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.ECLIPSE_LOCATION/operation=replace
-environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.ECLIPSE_LOCATION/value=${eclipse_home}/////////////////////////////////////////////////////////////////
+environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.ECLIPSE_LOCATION/value=${eclipse_home}/////////////////////////////////////////////////////////////////////////////////////////////////////
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.EXTRA.ALL/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.EXTRA.ALL/operation=replace
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.EXTRA.ALL/value=
@@ -466,7 +466,7 @@ environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.EXTRA.LI
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.EXTRA.LINK/value=
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.MENU/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.MENU/operation=replace
-environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.MENU/value=cpu\=atmega328old
+environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.MENU/value=cpu\=atmega328
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.OBJCOPY/delimiter=\:
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.OBJCOPY/operation=replace
 environment/project/io.sloeber.core.toolChain.release.1154776706/JANTJE.OBJCOPY/value=${A.RECIPE.OBJCOPY.EEP.PATTERN}\n\t${A.RECIPE.OBJCOPY.HEX.PATTERN}

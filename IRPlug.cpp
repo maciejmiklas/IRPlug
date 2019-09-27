@@ -1,7 +1,7 @@
 #include "IRPlug.h"
 
 const int RECV_PIN = 7;
-const int OUT_PIN = 8;
+const int OUT_PIN = 10;
 const int LED_PIN = 2;
 
 const int IR_SIG = 0x6F58;
@@ -16,13 +16,24 @@ void setup() {
 	irrecv.blink13(true);
 	pinMode(OUT_PIN, OUTPUT);
 	pinMode(LED_PIN, OUTPUT);
-	digitalWrite(OUT_PIN, HIGH);
+	digitalWrite(OUT_PIN, LOW);
 }
-
 long lst = 0;
 boolean lon = false;
+
+void blink() {
+	if (lon) {
+		digitalWrite(LED_PIN, LOW);
+		lon = false;
+	} else {
+		digitalWrite(LED_PIN, HIGH);
+		lon = true;
+
+	}
+}
 void loop() {
 	if (irrecv.decode(&results)) {
+		blink();
 		if (IR_SIG == results.value) {
 			if (on) {
 				//Serial.println("OFF");
@@ -41,13 +52,6 @@ void loop() {
 	long ct = millis();
 	if (ct - lst > 2000) {
 		lst = ct;
-		if(lon){
-			digitalWrite(LED_PIN, LOW);
-			lon = false;
-		}else{
-			digitalWrite(LED_PIN, HIGH);
-			lon = true;
-
-		}
+		blink();
 	}
 }
