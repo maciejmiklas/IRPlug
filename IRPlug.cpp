@@ -1,57 +1,86 @@
 #include "IRPlug.h"
 
-const int RECV_PIN = 7;
-const int OUT_PIN = 10;
-const int LED_PIN = 2;
+const uint8_t RECV_PIN = 7;
+const uint8_t RBEEP_PIN = 9;
+const uint8_t RELAY_PIN = 10;
+const uint8_t LED_PIN = 2;
+const uint16_t IR_ON_CODE = 0x6F58;
+const uint16_t BLINK_FREQ_MS = 5000;
 
-const int IR_SIG = 0x6F58;
+const uint16_t AUTO_OFF_BEEP_MS = 10800000; // 3h
+const uint16_t AUTO_OFF_DELAY_MS = 14400000; // 4h
+const uint16_t BEEP_REPEAT_MS = 1000;
 
-boolean on = false;
+boolean realyOn = false;
 IRrecv irrecv(RECV_PIN);
-decode_results results;
+decode_results irDecode;
+uint32_t lastBlinkMs = 0;
+uint32_t lastIRSigMs = 0;
+uint32_t lastBeepMs = 0;
+boolean blinkOn = false;
 
 void setup() {
 	//Serial.begin(115200);
 	irrecv.enableIRIn();
 	irrecv.blink13(true);
-	pinMode(OUT_PIN, OUTPUT);
+	pinMode(RELAY_PIN, OUTPUT);
+	digitalWrite(RELAY_PIN, LOW);
+
 	pinMode(LED_PIN, OUTPUT);
-	digitalWrite(OUT_PIN, LOW);
+
 }
-long lst = 0;
-boolean lon = false;
 
 void blink() {
-	if (lon) {
+	if (blinkOn) {
 		digitalWrite(LED_PIN, LOW);
-		lon = false;
+		blinkOn = false;
 	} else {
 		digitalWrite(LED_PIN, HIGH);
-		lon = true;
+		blinkOn = true;
 
 	}
 }
+void switchRealyOn() {
+	realyOn = true;
+	//Serial.println("ON");
+	digitalWrite(RELAY_PIN, HIGH);
+}
+
+void switchRealyOff() {
+	//Serial.println("OFF");
+	digitalWrite(RELAY_PIN, LOW);
+	realyOn = false;
+}
+
 void loop() {
-	if (irrecv.decode(&results)) {
+	long ms = millis();
+
+	if (irrecv.decode(&irDecode)) {
+		lastIRSigMs = ms;
 		blink();
-		if (IR_SIG == results.value) {
-			if (on) {
-				//Serial.println("OFF");
-				digitalWrite(OUT_PIN, LOW);
-				on = false;
+		if (IR_ON_CODE == irDecode.value) {
+			if (realyOn) {
+				switchRealyOff();
 			} else {
-				on = true;
-				//Serial.println("ON");
-				digitalWrite(OUT_PIN, HIGH);
+				switchRealyOn();
 			}
-			delay(500);
+			delay(200);
 		}
 		irrecv.resume();
 	}
 
-	long ct = millis();
-	if (ct - lst > 2000) {
-		lst = ct;
+	if (ms - lastBlinkMs > BLINK_FREQ_MS) {
+		lastBlinkMs = ms;
 		blink();
+	}
+
+	if (realyOn && ms - lastIRSigMs > AUTO_OFF_BEEP_MS) {
+		if (ms - lastBeepMs > BEEP_REPEAT_MS) {
+			tone(RBEEP_PIN, 1000, 200);
+			lastBeepMs = ms;
+		}
+		if (ms - lastIRSigMs > AUTO_OFF_DELAY_MS) {
+			switchRealyOff();
+		}
 	}
 }
