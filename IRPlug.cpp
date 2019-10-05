@@ -7,9 +7,9 @@ const uint8_t LED_PIN = 2;
 const uint16_t IR_ON_CODE = 0x6F58;
 const uint16_t BLINK_FREQ_MS = 5000;
 
-const uint16_t AUTO_OFF_BEEP_MS = 10800000; // 3h
-const uint16_t AUTO_OFF_DELAY_MS = 14400000; // 4h
-const uint16_t BEEP_REPEAT_MS = 1000;
+const uint32_t AUTO_OFF_BEEP_MS = 10800000; // 10800000 = 3h
+const uint32_t AUTO_OFF_DELAY_MS = 14400000; // 14400000 = 4h
+const uint16_t BEEP_REPEAT_MS = 5000;
 
 boolean realyOn = false;
 IRrecv irrecv(RECV_PIN);
@@ -26,6 +26,7 @@ void setup() {
 	pinMode(RELAY_PIN, OUTPUT);
 	digitalWrite(RELAY_PIN, LOW);
 
+	pinMode(RBEEP_PIN, OUTPUT);
 	pinMode(LED_PIN, OUTPUT);
 
 }
@@ -52,6 +53,15 @@ void switchRealyOff() {
 	realyOn = false;
 }
 
+void playTone(int tone, int duration) {
+	for (long i = 0; i < duration * 1000L; i += tone * 2) {
+		digitalWrite(RBEEP_PIN, HIGH);
+		delayMicroseconds(tone);
+		digitalWrite(RBEEP_PIN, LOW);
+		delayMicroseconds(tone);
+	}
+}
+
 void loop() {
 	long ms = millis();
 
@@ -67,16 +77,14 @@ void loop() {
 			delay(200);
 		}
 		irrecv.resume();
-	}
 
-	if (ms - lastBlinkMs > BLINK_FREQ_MS) {
+	} else if (ms - lastBlinkMs > BLINK_FREQ_MS) {
 		lastBlinkMs = ms;
 		blink();
-	}
 
-	if (realyOn && ms - lastIRSigMs > AUTO_OFF_BEEP_MS) {
+	} else if (realyOn && ms - lastIRSigMs > AUTO_OFF_BEEP_MS) {
 		if (ms - lastBeepMs > BEEP_REPEAT_MS) {
-			tone(RBEEP_PIN, 1000, 200);
+			playTone(1000, 200);
 			lastBeepMs = ms;
 		}
 		if (ms - lastIRSigMs > AUTO_OFF_DELAY_MS) {
